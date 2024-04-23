@@ -1,3 +1,11 @@
 from django.db import models
 
-# Create your models here.
+
+class InterestingPlacesModel(models.Model):
+    name = models.CharField(max_length=30, verbose_name='Наименование')
+    description = models.TextField(blank=True)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+
+    def __str__(self):
+        return self.name
