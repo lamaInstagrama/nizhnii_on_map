@@ -14,6 +14,7 @@ class InterestingPlacesModel(models.Model):
 
 class Groups(models.Model):
     name = models.CharField(max_length=30)
+    icon = models.CharField(max_length=30)
 
     def __str__(self):
         return self.name

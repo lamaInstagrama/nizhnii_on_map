@@ -9,7 +9,7 @@ def get_map() -> str:
     places = InterestingPlacesModel.objects.all()
     groups = Groups.objects.all()
 
-    nizhnii_map = folium.Map(location=[56.314063, 43.993167])  # дом связи
+    nizhnii_map = folium.Map(location=[56.314063, 43.993167], zoom_start=13)  # дом связи
 
     # Создаю группы и присваиваю их карте
     for group in groups:
@@ -20,10 +20,14 @@ def get_map() -> str:
     for place in places:
         coordinates = place.latitude, place.longitude
         group_name = place.group.name
-        label = f'<h1>{place.name}</h1><p>{place.description}</p>'
+        label = f'<h3>{place.name}</h3><p style=font-size:13px>{place.description}</p>'
+        icon = folium.CustomIcon(place.group.icon, icon_size=(50, 50))
+        tooltip = place.name
 
         folium.Marker(coordinates,
-                      popup=folium.Popup(label, max_width=300)).add_to(getattr(get_map, group_name))
+                      popup=folium.Popup(label, max_width=300),
+                      icon=icon,
+                      tooltip=tooltip).add_to(getattr(get_map, group_name))
 
     folium.LayerControl().add_to(nizhnii_map)
 
