@@ -10,12 +10,10 @@ def get_map() -> str:
     groups = Groups.objects.all()
 
     nizhnii_map = folium.Map(location=[56.314063, 43.993167], zoom_start=13)  # дом связи
-    #
-
     # folium.TileLayer('stamen_terrain', attr='Stamen').add_to(nizhnii_map)
+    folium.TileLayer('openstreetmap').add_to(nizhnii_map)  # Обычная карта
     folium.TileLayer('cartodbpositron').add_to(nizhnii_map)  # Карта без деталей рельефа
     # folium.TileLayer('cartodbdark_matter').add_to(nizhnii_map)  # Темная карта
-    folium.TileLayer('openstreetmap').add_to(nizhnii_map)  # Обычная карта
 
     # Создаю группы и присваиваю их карте
     for group in groups:
